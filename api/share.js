@@ -63,10 +63,10 @@ module.exports = async (req, res) => {
   }).fromString(data.trimRight())
   const responsedata =_.map(datalist, (i) => {
     return {
-      last: i.Schluss,
-      first: i.Eroeffnung,
-      high: i.Hoch,
-      low: i.Tief,
+      last: i.Schluss.replace(',', '.'),
+      first: i.Eroeffnung.replace(',', '.'),
+      high: i.Hoch.replace(',', '.'),
+      low: i.Tief.replace(',', '.'),
       datetimeLast: {
         localTime: "12:00:00 " + i.Datum,
         localTimeZone: "GMT",
