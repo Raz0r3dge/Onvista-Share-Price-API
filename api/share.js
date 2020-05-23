@@ -29,7 +29,6 @@ function toTimestamp(strDate) {
 module.exports = async (req, res) => {
   try {
     let query = await schema.validateAsync(req.query);
-    console.log(query)
     query.dateStart = query.datetimeTzStartRange
     delete query.datetimeTzStartRange
     query.interval = query.timeSpan
