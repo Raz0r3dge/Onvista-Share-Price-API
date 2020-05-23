@@ -10,8 +10,9 @@ const schema = Joi.object({
     .pattern(new RegExp(/^(\d{2})\.(\d{2})\.(\d{4})$/))
     .default('01.01.2019'),
   timeSpan: Joi.string()
-    .pattern(new RegExp(/^[YMD][1]$/))
-    .replace(/^([1])([YMD])$/, '$2$1'),
+    .pattern(new RegExp(/^[YMD][0-9]$/))
+    .replace(/^([0-9])([YMD])$/, '$2$1')
+    .default('Y5'),
   idNotation: Joi.string()
 })
 .xor('wkn', 'idNotation')
@@ -28,6 +29,7 @@ function toTimestamp(strDate) {
 module.exports = async (req, res) => {
   try {
     let query = await schema.validateAsync(req.query);
+    console.log(query)
     query.dateStart = query.datetimeTzStartRange
     delete query.datetimeTzStartRange
     query.interval = query.timeSpan
@@ -59,7 +61,6 @@ module.exports = async (req, res) => {
       delete query.wkn
       delete query.ex
     }
-    console.log(query)
     const {data} = await axios({
       url: 'https://www.onvista.de/onvista/boxes/historicalquote/export.csv',
       method: 'GET',
