@@ -18,7 +18,10 @@ fs.readFile(__dirname + '/style.css', function (err, styleData) {
     let preContent = `     <html>       <head>         <title>` + pageTitle + `</title>         <meta name="viewport" content="width=device-width, initial-scale=1">       </head>       <body>         <div id='content'>     `
     let postContent = `         </div>         <style type='text/css'>` + styleData + `</style>       </body>     </html>`;
     html = preContent + converter.makeHtml(text) + postContent;
-    let filePath = __dirname + "/index.html";
+    let filePath = __dirname + "/public/index.html";
+    if (!fs.existsSync('./public')) {
+      fs.mkdirSync('./public');
+    }
     fs.writeFile(filePath, html, function (err) {
       console.log("Done, saved to " + filePath);
     });
