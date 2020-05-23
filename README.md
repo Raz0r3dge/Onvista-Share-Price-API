@@ -1,9 +1,9 @@
 # Onvista-Share-Price-API
 
 ## URLs
-ETF: https://onvista-share-price-api.now.sh/api/etf?ex=LSX&wkn={WKN}
+ETF: https://onvista-share-price-api.now.sh/api/etf
 
-Share: https://onvista-share-price-api.now.sh/api/share?ex=Lang%20%26%20Schwarz&wkn={WKN}
+Share: https://onvista-share-price-api.now.sh/api/share
 
 ## Parameters
 * ex
@@ -28,7 +28,7 @@ Share: https://onvista-share-price-api.now.sh/api/share?ex=Lang%20%26%20Schwarz&
 
 
 ## Portfolio Performance Setup
-### URLs
+### Example URLs
 ETF:
 ``` https://onvista-share-price-api.now.sh/api/etf?ex=LSX&wkn={WKN} ```
 
