@@ -92,3 +92,4 @@ sw.*
 .vercel
 .now
 package-lock.json
+index.html
