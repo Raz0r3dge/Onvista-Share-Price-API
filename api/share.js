@@ -21,12 +21,6 @@ const schema = Joi.object({
 .with('wkn', 'ex')
 .with('ex', 'wkn')
 
-function toTimestamp(strDate) {
-  var d = new Date(strDate.replace(/(\d{2})\.(\d{2})\.(\d{4})/, '$3-$2-$1'))
-  d.setHours(12)
-  return d / 1000;
-}
-
 module.exports = async (req, res) => {
   try {
     let query = await schema.validateAsync(req.query);
@@ -79,22 +73,22 @@ module.exports = async (req, res) => {
         datetimeLast: {
           localTime: "12:00:00 " + i.Datum,
           localTimeZone: "GMT",
-          UTCTimeStamp: toTimestamp(i.Datum)
+          UTCTimeStamp: (moment(i.Datum, "DD-MM-YYYY").hour(12).utc().valueOf() / 1000)
         },
         datetimeFirst: {
           localTime: "12:00:00 " + i.Datum,
           localTimeZone: "GMT",
-          UTCTimeStamp: toTimestamp(i.Datum)
+          UTCTimeStamp: (moment(i.Datum, "DD-MM-YYYY").hour(12).utc().valueOf() / 1000)
         },
         datetimeHigh: {
           localTime: "12:00:00 " + i.Datum,
           localTimeZone: "GMT",
-          UTCTimeStamp: toTimestamp(i.Datum)
+          UTCTimeStamp: (moment(i.Datum, "DD-MM-YYYY").hour(12).utc().valueOf() / 1000)
         },
         datetimeLow: {
           localTime: "12:00:00 " + i.Datum,
           localTimeZone: "GMT",
-          UTCTimeStamp: toTimestamp(i.Datum)
+          UTCTimeStamp: (moment(i.Datum, "DD-MM-YYYY").hour(12).utc().valueOf() / 1000)
         }
       }
     })
