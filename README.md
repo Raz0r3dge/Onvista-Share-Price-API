@@ -25,7 +25,7 @@ Share: https://onvista-share-price-api.now.sh/api/share?ex=Lang%20%26%20Schwarz&
 ## Examples
 
 ``` https://onvista-share-price-api.now.sh/api/etf?ex=LSX&wkn={WKN}&timeSpan=5Y ```
-```https://onvista-share-price-api.now.sh/api/share?ex=Lang%20%26%20Schwarz&wkn={WKN}&timeSpan=5Y```
+``` https://onvista-share-price-api.now.sh/api/share?ex=Lang%20%26%20Schwarz&wkn={WKN}&timeSpan=5Y ```
 
 
 ## Portfolio Performance Setup
@@ -34,7 +34,7 @@ ETF:
 ``` https://onvista-share-price-api.now.sh/api/etf?ex=LSX&wkn={WKN} ```
 
 Share:
-```https://onvista-share-price-api.now.sh/api/share?ex=Lang%20%26%20Schwarz&wkn={WKN}```
+``` https://onvista-share-price-api.now.sh/api/share?ex=Lang%20%26%20Schwarz&wkn={WKN} ```
 
 ### JSON Path
 Date:
