@@ -24,7 +24,6 @@ module.exports = async (req, res) => {
   if (req.query.idNotation) {
     notationId = req.query.idNotation
   } else if (req.query.wkn && req.query.ex) {
-    console.log(req.query.ex)
     const SearchReponse = await axios.get(`https://www.onvista.de/suche/?searchValue=${req.query.wkn}`)
     const $ = cheerio.load(SearchReponse.data);
     const exchanges = $('#exchangesLayer > ul > li > a').map((i, item) => {
