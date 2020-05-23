@@ -2,13 +2,14 @@ const FormData = require('form-data');
 const axios = require('axios');
 const cheerio = require('cheerio');
 const _ = require('lodash');
+const moment = require('moment');
 const Joi = require('@hapi/joi');
 const schema = Joi.object({
     wkn: Joi.string(),
     ex: Joi.string(),
     datetimeTzStartRange: Joi.string()
       .pattern(new RegExp(/^(\d{2})\.(\d{2})\.(\d{4})$/))
-      .default('01.01.2019'),
+      .default(moment().subtract(1, 'year').format('DD.MM.YYYY')),
     timeSpan: Joi.string()
       .pattern(new RegExp(/^[0-9][YMD]$/))
       .default('5Y'),

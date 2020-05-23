@@ -22,6 +22,7 @@
     "cheerio": "^1.0.0-rc.3",
     "csvtojson": "^2.0.10",
     "form-data": "^3.0.0",
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.15",
+    "moment": "^2.26.0"
   }
 }
