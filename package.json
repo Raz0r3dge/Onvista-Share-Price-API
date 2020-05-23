@@ -1,0 +1,23 @@
+{
+  "name": "onvista-share-price-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/benny/onvista-share-price-api.git"
+  },
+  "author": "Benny Hierl",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/benny/onvista-share-price-api/issues"
+  },
+  "homepage": "https://gitlab.com/benny/onvista-share-price-api#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "form-data": "^3.0.0"
+  }
+}
