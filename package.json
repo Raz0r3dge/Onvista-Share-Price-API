@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:html": "node build.js Onvista-Share-Price-API",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vuepress dev .",
+    "build": "vuepress build ."
   },
   "repository": {
     "type": "git",
@@ -26,5 +26,8 @@
     "lodash": "^4.17.15",
     "moment": "^2.26.0",
     "showdown": "^1.9.1"
+  },
+  "devDependencies": {
+    "vuepress": "^1.5.0"
   }
 }
