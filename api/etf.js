@@ -6,7 +6,8 @@ const moment = require('moment');
 const Joi = require('@hapi/joi');
 const schema = Joi.object({
     wkn: Joi.string(),
-    ex: Joi.string(),
+    ex: Joi.string()
+    .valid('LSE', 'GER', 'AMS', 'GAT', 'LSE', 'STU', 'PNK', 'LSX', 'QUO', 'SWX', 'FRA', 'MUN', 'HAM', 'BER', 'DUS', 'TRO', 'WM', 'WM', 'BBF', 'LUSG'),
     datetimeTzStartRange: Joi.string()
       .pattern(new RegExp(/^(\d{2})\.(\d{2})\.(\d{4})$/))
       .default(moment().subtract(1, 'year').format('DD.MM.YYYY')),

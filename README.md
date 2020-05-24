@@ -15,6 +15,10 @@ Share: ``` https://onvista-share-price-api.now.sh/api/share ```
 * ex
   * required with wkn
   * not in combination with idNotation
+  * options
+    * ETFs: LSE, GER, AMS, GAT, LSE, STU, PNK, LSX, QUO, SWX, FRA, MUN, HAM, BER, DUS, TRO, WM, WM, BBF, LUSG
+    * Shares: Tradegate, Stuttgart, Frankfurt, LS Exchange, München, London Trade Rep., Quotrix, Hamburg, Nasdaq OTC, Gettex, Lang &amp; Schwarz, Düsseldorf, Berlin, Baader Bank
+
 * wkn
   * required with ex
   * not in combination with idNotation

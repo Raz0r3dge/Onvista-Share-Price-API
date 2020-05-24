@@ -1,6 +1,6 @@
 module.exports = {
   title: 'Onvista Share Price API',
-  description: 'A API to fetch share price from onvista via JSON',
+  description: 'A API to fetch share prices from onvista via JSON',
   dest: 'public',
   themeConfig: {
     search: false,
