@@ -62,12 +62,12 @@ Share with Lang & Schwarz Exchange:
 
 Date:
 
-```
+```js
 $[*].datetimeLast.UTCTimeStamp
 ```
 
 Last share price:
 
-```
+```js
 $[*].last
 ```
