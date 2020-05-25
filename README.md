@@ -38,11 +38,11 @@ Share: ``` https://onvista-share-price-api.now.sh/api/share ```
 
 ## Examples
 
-* ``` https://onvista-share-price-api.now.sh/api/etf?ex=LSX&wkn={WKN}&timeSpan=5Y ```
+* ``` https://onvista-share-price-api.now.sh/api/etf?ex=LSX&wkn=A111X9&timeSpan=5Y ```
 
-* ``` https://onvista-share-price-api.now.sh/api/share?ex=LS%20Exchange&wkn={WKN}&timeSpan=5Y ```
+* ``` https://onvista-share-price-api.now.sh/api/share?ex=LS%20Exchange&wkn=A111X9&timeSpan=5Y ```
 
-* ``` https://onvista-share-price-api.now.sh/api/share?ex=LS%20Exchange&wkn={WKN}&timeSpan=5Y&datetimeTzStartRange=01.01.2020 ```
+* ``` https://onvista-share-price-api.now.sh/api/share?ex=LS%20Exchange&wkn=A111X9&timeSpan=5Y&datetimeTzStartRange=01.01.2020 ```
 
 ## Portfolio Performance Setup
 
