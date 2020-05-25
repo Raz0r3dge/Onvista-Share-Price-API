@@ -29,7 +29,7 @@ Share: ``` https://onvista-share-price-api.now.sh/api/share ```
   * not in combination with ex, wkn
 * datetimeTzStartRange
   * optional
-  * Default: One Year ago
+  * Default: five years ago
   * format: DD.MM.YYYY
 * timeSpan
   * optional

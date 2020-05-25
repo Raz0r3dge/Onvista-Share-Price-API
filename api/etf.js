@@ -10,7 +10,7 @@ const schema = Joi.object({
     .valid('LSE', 'GER', 'AMS', 'GAT', 'LSE', 'STU', 'PNK', 'LSX', 'QUO', 'SWX', 'FRA', 'MUN', 'HAM', 'BER', 'DUS', 'TRO', 'WM', 'WM', 'BBF', 'LUSG'),
     datetimeTzStartRange: Joi.string()
       .pattern(new RegExp(/^(\d{2})\.(\d{2})\.(\d{4})$/))
-      .default(moment().subtract(1, 'year').format('DD.MM.YYYY')),
+      .default(moment().subtract(5, 'year').format('DD.MM.YYYY')),
     timeSpan: Joi.string()
       .pattern(new RegExp(/^[0-9][YMD]$/))
       .default('5Y'),

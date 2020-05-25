@@ -10,7 +10,7 @@ const schema = Joi.object({
   .valid('Tradegate', 'Stuttgart', 'Frankfurt', 'LS Exchange', 'München', 'London Trade Rep.', 'Quotrix', 'Hamburg', 'Nasdaq OTC', 'Gettex', 'Lang & Schwarz', 'Düsseldorf', 'Berlin', 'Baader Bank'),
   datetimeTzStartRange: Joi.string()
     .pattern(new RegExp(/^(\d{2})\.(\d{2})\.(\d{4})$/))
-    .default(moment().subtract(1, 'year').format('DD.MM.YYYY')),
+    .default(moment().subtract(5, 'year').format('DD.MM.YYYY')),
   timeSpan: Joi.string()
     .pattern(new RegExp(/^[YMD][0-9]$/))
     .replace(/^([0-9])([YMD])$/, '$2$1')
