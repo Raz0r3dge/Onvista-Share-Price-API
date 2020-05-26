@@ -49,22 +49,24 @@ module.exports = async (req, res) => {
       }
       query.idNotation = exhange.idNotation
     }
-    if (query.today !== false) {
-      const { data } = await axios.post(`https://www.onvista.de/api/quote/${query.idNotation}/RLT`);
-      res.json(data)
-    } else {
-      const formData = new FormData();
-      formData.append('datetimeTzStartRange', query.datetimeTzStartRange);
-      formData.append('timeSpan', query.timeSpan);
-      formData.append('codeResolution', query.codeResolution);
-      formData.append('idNotation', query.idNotation);
-      const {data} = await axios.post('https://www.onvista.de/etf/ajax/snapshotHistory', formData, {
-        // You need to use `getHeaders()` in Node.js because Axios doesn't
-        // automatically set the multipart form boundary in Node.
-        headers: formData.getHeaders()
-      });
-      res.json(data)
-    }
+
+    const formData = new FormData();
+    formData.append('datetimeTzStartRange', query.datetimeTzStartRange);
+    formData.append('timeSpan', query.timeSpan);
+    formData.append('codeResolution', query.codeResolution);
+    formData.append('idNotation', query.idNotation);
+    let  { data } = await axios.post('https://www.onvista.de/etf/ajax/snapshotHistory', formData, {
+      // You need to use `getHeaders()` in Node.js because Axios doesn't
+      // automatically set the multipart form boundary in Node.
+      headers: formData.getHeaders()
+    });
+
+    let rlt = await axios.post(`https://www.onvista.de/api/quote/${query.idNotation}/RLT`);
+    rlt.data.last = rlt.data.price
+    rlt.data.datetimeLast = rlt.data.datetimePrice
+    data.push(rlt.data)
+
+    res.json(data)
   } catch (error) {
     console.error(error)
     res.status(400).json(error)
