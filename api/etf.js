@@ -17,7 +17,8 @@ const schema = Joi.object({
     codeResolution: Joi.string()
       .pattern(new RegExp(/^[0-9][YMD]$/))
       .default('1D'),
-    idNotation: Joi.string()
+    idNotation: Joi.string(),
+    today: Joi.string().default(false)
   })
   .xor('wkn', 'idNotation')
   .xor('ex', 'idNotation')
@@ -48,18 +49,22 @@ module.exports = async (req, res) => {
       }
       query.idNotation = exhange.idNotation
     }
-
-    const formData = new FormData();
-    formData.append('datetimeTzStartRange', query.datetimeTzStartRange);
-    formData.append('timeSpan', query.timeSpan);
-    formData.append('codeResolution', query.codeResolution);
-    formData.append('idNotation', query.idNotation);
-    const {data} = await axios.post('https://www.onvista.de/etf/ajax/snapshotHistory', formData, {
-      // You need to use `getHeaders()` in Node.js because Axios doesn't
-      // automatically set the multipart form boundary in Node.
-      headers: formData.getHeaders()
-    });
-    res.json(data)
+    if (query.today !== false) {
+      const { data } = await axios.post(`https://www.onvista.de/api/quote/${query.idNotation}/RLT`);
+      res.json(data)
+    } else {
+      const formData = new FormData();
+      formData.append('datetimeTzStartRange', query.datetimeTzStartRange);
+      formData.append('timeSpan', query.timeSpan);
+      formData.append('codeResolution', query.codeResolution);
+      formData.append('idNotation', query.idNotation);
+      const {data} = await axios.post('https://www.onvista.de/etf/ajax/snapshotHistory', formData, {
+        // You need to use `getHeaders()` in Node.js because Axios doesn't
+        // automatically set the multipart form boundary in Node.
+        headers: formData.getHeaders()
+      });
+      res.json(data)
+    }
   } catch (error) {
     console.error(error)
     res.status(400).json(error)

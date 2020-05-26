@@ -15,7 +15,8 @@ const schema = Joi.object({
     .pattern(new RegExp(/^[YMD][0-9]$/))
     .replace(/^([0-9])([YMD])$/, '$2$1')
     .default('Y5'),
-  idNotation: Joi.string()
+  idNotation: Joi.string(),
+  today: Joi.string().default(false)
 })
 .xor('wkn', 'idNotation')
 .xor('ex', 'idNotation')
@@ -56,44 +57,50 @@ module.exports = async (req, res) => {
       delete query.wkn
       delete query.ex
     }
-    const {data} = await axios({
-      url: 'https://www.onvista.de/onvista/boxes/historicalquote/export.csv',
-      method: 'GET',
-      responseType: 'blob',
-      params: query
-    })
-    const datalist = await csv({
-      delimiter: [";"]
-    }).fromString(data.trimRight())
-    const responsedata =_.map(datalist, (i) => {
-      return {
-        last: i.Schluss.replace(',', '.'),
-        first: i.Eroeffnung.replace(',', '.'),
-        high: i.Hoch.replace(',', '.'),
-        low: i.Tief.replace(',', '.'),
-        datetimeLast: {
-          localTime: "12:00:00 " + i.Datum,
-          localTimeZone: "GMT",
-          UTCTimeStamp: (moment(i.Datum, "DD-MM-YYYY").hour(12).utc().valueOf() / 1000)
-        },
-        datetimeFirst: {
-          localTime: "12:00:00 " + i.Datum,
-          localTimeZone: "GMT",
-          UTCTimeStamp: (moment(i.Datum, "DD-MM-YYYY").hour(12).utc().valueOf() / 1000)
-        },
-        datetimeHigh: {
-          localTime: "12:00:00 " + i.Datum,
-          localTimeZone: "GMT",
-          UTCTimeStamp: (moment(i.Datum, "DD-MM-YYYY").hour(12).utc().valueOf() / 1000)
-        },
-        datetimeLow: {
-          localTime: "12:00:00 " + i.Datum,
-          localTimeZone: "GMT",
-          UTCTimeStamp: (moment(i.Datum, "DD-MM-YYYY").hour(12).utc().valueOf() / 1000)
+
+    if (query.today !== false) {
+      const { data } = await axios.post(`https://www.onvista.de/api/quote/${query.notationId}/RLT`);
+      res.json(data)
+    } else {
+      const {data} = await axios({
+        url: 'https://www.onvista.de/onvista/boxes/historicalquote/export.csv',
+        method: 'GET',
+        responseType: 'blob',
+        params: query
+      })
+      const datalist = await csv({
+        delimiter: [";"]
+      }).fromString(data.trimRight())
+      const responsedata =_.map(datalist, (i) => {
+        return {
+          last: i.Schluss.replace(',', '.'),
+          first: i.Eroeffnung.replace(',', '.'),
+          high: i.Hoch.replace(',', '.'),
+          low: i.Tief.replace(',', '.'),
+          datetimeLast: {
+            localTime: "12:00:00 " + i.Datum,
+            localTimeZone: "GMT",
+            UTCTimeStamp: (moment(i.Datum, "DD-MM-YYYY").hour(12).utc().valueOf() / 1000)
+          },
+          datetimeFirst: {
+            localTime: "12:00:00 " + i.Datum,
+            localTimeZone: "GMT",
+            UTCTimeStamp: (moment(i.Datum, "DD-MM-YYYY").hour(12).utc().valueOf() / 1000)
+          },
+          datetimeHigh: {
+            localTime: "12:00:00 " + i.Datum,
+            localTimeZone: "GMT",
+            UTCTimeStamp: (moment(i.Datum, "DD-MM-YYYY").hour(12).utc().valueOf() / 1000)
+          },
+          datetimeLow: {
+            localTime: "12:00:00 " + i.Datum,
+            localTimeZone: "GMT",
+            UTCTimeStamp: (moment(i.Datum, "DD-MM-YYYY").hour(12).utc().valueOf() / 1000)
+          }
         }
-      }
-    })
-    res.send(responsedata)
+      })
+      res.json(responsedata)
+    }
   } catch (error) {
     console.error(error)
     res.status(400).json(error)
