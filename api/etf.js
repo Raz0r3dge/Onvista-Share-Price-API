@@ -1,29 +1,28 @@
-const FormData = require('form-data');
+'use strict';
 const axios = require('axios');
 const cheerio = require('cheerio');
-const _ = require('lodash');
 const moment = require('moment');
 const Joi = require('@hapi/joi');
+const fetchData = require('./_utils/fetchData');
 const schema = Joi.object({
-    wkn: Joi.string(),
-    ex: Joi.string()
-    .valid('LSE', 'GER', 'AMS', 'GAT', 'LSE', 'STU', 'PNK', 'LSX', 'QUO', 'SWX', 'FRA', 'MUN', 'HAM', 'BER', 'DUS', 'TRO', 'WM', 'WM', 'BBF', 'LUSG'),
-    datetimeTzStartRange: Joi.string()
-      .pattern(new RegExp(/^(\d{2})\.(\d{2})\.(\d{4})$/))
-      .default(moment().subtract(5, 'year').format('DD.MM.YYYY')),
-    timeSpan: Joi.string()
-      .pattern(new RegExp(/^[0-9][YMD]$/))
-      .default('5Y'),
-    codeResolution: Joi.string()
-      .pattern(new RegExp(/^[0-9][YMD]$/))
-      .default('1D'),
-    idNotation: Joi.string(),
-    today: Joi.string().default(false)
-  })
-  .xor('wkn', 'idNotation')
-  .xor('ex', 'idNotation')
-  .with('wkn', 'ex')
-  .with('ex', 'wkn')
+  wkn: Joi.string(),
+  ex: Joi.string()
+  .valid('LSE', 'GER', 'AMS', 'GAT', 'LSE', 'STU', 'PNK', 'LSX', 'QUO', 'SWX', 'FRA', 'MUN', 'HAM', 'BER', 'DUS', 'TRO', 'WM', 'WM', 'BBF', 'LUSG'),
+  datetimeTzStartRange: Joi.string()
+    .pattern(new RegExp(/^(\d{2})\.(\d{2})\.(\d{4})$/))
+    .default(moment().subtract(5, 'year').format('DD.MM.YYYY')),
+  timeSpan: Joi.string()
+    .pattern(new RegExp(/^[0-9][YMD]$/))
+    .default('5Y'),
+  codeResolution: Joi.string()
+    .pattern(new RegExp(/^[0-9][YMD]$/))
+    .default('1D'),
+  idNotation: Joi.string()
+})
+.xor('wkn', 'idNotation')
+.xor('ex', 'idNotation')
+.with('wkn', 'ex')
+.with('ex', 'wkn')
 
 module.exports = async (req, res) => {
   try {
@@ -41,35 +40,15 @@ module.exports = async (req, res) => {
           idNotation
         }
       }).get()
-      const exhange = _.find(exchanges, function (o) {
-        return o.ex === _.toUpper(query.ex);
-      });
+      const exhange = exchanges.find(o => o.ex.toUpperCase() === query.ex.toUpperCase())
       if (exhange === undefined) {
         return res.status(400).send('idNotation konnte nicht ermittelt werden!')
       }
       query.idNotation = exhange.idNotation
     }
-
-    const formData = new FormData();
-    formData.append('datetimeTzStartRange', query.datetimeTzStartRange);
-    formData.append('timeSpan', query.timeSpan);
-    formData.append('codeResolution', query.codeResolution);
-    formData.append('idNotation', query.idNotation);
-    let  { data } = await axios.post('https://www.onvista.de/etf/ajax/snapshotHistory', formData, {
-      // You need to use `getHeaders()` in Node.js because Axios doesn't
-      // automatically set the multipart form boundary in Node.
-      headers: formData.getHeaders()
-    });
-
-    let rlt = await axios.post(`https://www.onvista.de/api/quote/${query.idNotation}/RLT`);
-    rlt.data.last = rlt.data.price
-    rlt.data.datetimeLast = rlt.data.datetimePrice
-    data.push(rlt.data)
-
-    res.json(data)
+    res.json(await fetchData(query))
   } catch (error) {
     console.error(error)
     res.status(400).json(error)
   }
 }
-
