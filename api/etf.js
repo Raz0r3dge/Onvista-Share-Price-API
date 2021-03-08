@@ -9,14 +9,11 @@ const schema = Joi.object({
   ex: Joi.string()
   .valid('LSE', 'GER', 'AMS', 'GAT', 'LSE', 'STU', 'PNK', 'LSX', 'QUO', 'SWX', 'FRA', 'MUN', 'HAM', 'BER', 'DUS', 'TRO', 'WM', 'WM', 'BBF', 'LUSG'),
   datetimeTzStartRange: Joi.string()
-    .pattern(new RegExp(/^(\d{2})\.(\d{2})\.(\d{4})$/))
-    .default(moment().subtract(5, 'year').format('DD.MM.YYYY')),
+    .pattern(new RegExp(/^(\d{4})-(\d{2})-(\d{2})$/))
+    .default(moment().subtract(5, 'year').format('YYYY-MM-DD')),
   timeSpan: Joi.string()
-    .pattern(new RegExp(/^[0-9][YMD]$/))
-    .default('5Y'),
-  codeResolution: Joi.string()
-    .pattern(new RegExp(/^[0-9][YMD]$/))
-    .default('1D'),
+    .pattern(new RegExp(/^[YMD][0-9]$/))
+    .default('Y5'),
   idNotation: Joi.string()
 })
 .xor('wkn', 'idNotation')
@@ -30,16 +27,22 @@ module.exports = async (req, res) => {
     if (query.wkn && query.ex) {
       const SearchReponse = await axios.get(`https://www.onvista.de/suche/?searchValue=${query.wkn}`)
       const $ = cheerio.load(SearchReponse.data);
-      const exchanges = $('#select-exchange > div.menu > div.item').map((i, item) => {
-        let title = item.attribs['data-contributor']
-        let ex = item.attribs['data-exchange']
-        let idNotation = item.attribs['data-value']
+      let jsonData
+      try {
+        jsonData = JSON.parse($('body > script#__NEXT_DATA__').html())
+      } catch (error) {
+        return res.status(500).send('unable to parse website data')
+      }
+      const exchanges = jsonData['props']['pageProps']['snapshot']['quoteList']['list'].map((item) => {
+        let title = item.market.name
+        let ex = item.market.codeExchange
+        let idNotation = item.market.idNotation
         return {
           title,
           ex,
           idNotation
         }
-      }).get()
+      })
       const exhange = exchanges.find(o => o.ex.toUpperCase() === query.ex.toUpperCase())
       if (exhange === undefined) {
         return res.status(400).send('idNotation konnte nicht ermittelt werden!')

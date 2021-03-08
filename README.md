@@ -30,7 +30,7 @@ Share: ``` https://onvista-share-price-api.now.sh/api/share ```
 * datetimeTzStartRange
   * optional
   * Default: five years ago
-  * format: DD.MM.YYYY
+  * format: YYYY-MM-DD
 * timeSpan
   * optional
   * default: 5Y
@@ -42,7 +42,7 @@ Share: ``` https://onvista-share-price-api.now.sh/api/share ```
 
 * ``` https://onvista-share-price-api.now.sh/api/share?ex=LS%20Exchange&wkn=A111X9&timeSpan=5Y ```
 
-* ``` https://onvista-share-price-api.now.sh/api/share?ex=LS%20Exchange&wkn=A111X9&timeSpan=5Y&datetimeTzStartRange=01.01.2020 ```
+* ``` https://onvista-share-price-api.now.sh/api/share?ex=LS%20Exchange&wkn=A111X9&timeSpan=5Y&datetimeTzStartRange=2020-01-01 ```
 
 ## Portfolio Performance Setup
 

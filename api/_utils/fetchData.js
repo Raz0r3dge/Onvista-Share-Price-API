@@ -1,5 +1,4 @@
 'use strict';
-const FormData = require('form-data');
 const axios = require('axios');
 
 const fetchRealtimeData = async (idNotation) => {
@@ -12,17 +11,21 @@ const fetchRealtimeData = async (idNotation) => {
 }
 
 const fetchHistoricalData = async (query) => {
-  const formData = new FormData();
-  formData.append('datetimeTzStartRange', query.datetimeTzStartRange);
-  formData.append('timeSpan', query.timeSpan);
-  formData.append('codeResolution', query.codeResolution);
-  formData.append('idNotation', query.idNotation);
-  let { data } = await axios.post('https://www.onvista.de/etf/ajax/snapshotHistory', formData, {
-    // You need to use `getHeaders()` in Node.js because Axios doesn't
-    // automatically set the multipart form boundary in Node.
-    headers: formData.getHeaders()
+  const url = `https://api.onvista.de/api/v1/instruments/FUND/00000000/eod_history?idNotation=${query.idNotation}&range=${query.timeSpan}&startDate=${query.datetimeTzStartRange}`;
+  let { data } = await axios.get(url);
+  const mergedData = data.datetimeLast.map(function (e, i) {
+    return {
+      datetimeLast: {
+        UTCTimeStamp: e
+      },
+      first: data.first[i],
+      last: data.last[i],
+      high: data.high[i],
+      volume: data.last[i],
+      numberPrices: data.numberPrices[i],
+    }
   });
-  return data
+  return mergedData;
 }
 
 module.exports = async (query) => {

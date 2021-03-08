@@ -9,14 +9,11 @@ const schema = Joi.object({
   ex: Joi.string()
   .valid('Tradegate', 'Stuttgart', 'Frankfurt', 'LS Exchange', 'München', 'London Trade Rep.', 'Quotrix', 'Hamburg', 'Nasdaq OTC', 'Gettex', 'Lang & Schwarz', 'Düsseldorf', 'Berlin', 'Baader Bank'),
   datetimeTzStartRange: Joi.string()
-    .pattern(new RegExp(/^(\d{2})\.(\d{2})\.(\d{4})$/))
-    .default(moment().subtract(5, 'year').format('DD.MM.YYYY')),
+    .pattern(new RegExp(/^(\d{4})-(\d{2})-(\d{2})$/))
+    .default(moment().subtract(5, 'year').format('YYYY-MM-DD')),
   timeSpan: Joi.string()
-    .pattern(new RegExp(/^[0-9][YMD]$/))
-    .default('5Y'),
-  codeResolution: Joi.string()
-    .pattern(new RegExp(/^[0-9][YMD]$/))
-    .default('1D'),
+    .pattern(new RegExp(/^[YMD][0-9]$/))
+    .default('Y5'),
   idNotation: Joi.string()
 })
 .xor('wkn', 'idNotation')
