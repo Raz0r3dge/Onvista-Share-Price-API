@@ -33,7 +33,7 @@ module.exports = async (req, res) => {
       } catch (error) {
         return res.status(500).send('unable to parse website data')
       }
-      const exchanges = jsonData['props']['pageProps']['snapshot']['quoteList']['list'].map((item) => {
+      const exchanges = jsonData['props']['pageProps']['data']['snapshot']['quoteList']['list'].map((item) => {
         let title = item.market.name
         let ex = item.market.codeExchange
         let idNotation = item.market.idNotation
