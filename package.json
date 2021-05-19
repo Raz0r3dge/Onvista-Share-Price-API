@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/benny/onvista-share-price-api.git"
+    "url": "git@github.com:ThisIsBenny/Onvista-Share-Price-API.git"
   },
   "author": "Benny Hierl",
   "license": "ISC",
   "bugs": {
-    "url": "https://gitlab.com/benny/onvista-share-price-api/issues"
+    "url": "https://github.com/ThisIsBenny/Onvista-Share-Price-API/issues"
   },
-  "homepage": "https://gitlab.com/benny/onvista-share-price-api#readme",
+  "homepage": "https://onvista-share-price-api.now.sh",
   "dependencies": {
     "@hapi/joi": "^17.1.1",
     "axios": "^0.21.1",
