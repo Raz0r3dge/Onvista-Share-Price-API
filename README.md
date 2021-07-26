@@ -1,18 +1,22 @@
----
-home: true
-lang: de-DE
-footer: Made with ❤️ in Düsseldorf
----
+# Onvista-Share-Price-API
 
-# Documentation
+__Update 26.07.2021: Due to the limitation of the free Vercel account, I no longer run a public instance via my personal account. But everyone is free to run his own instance.__
+
+## Host via Vercel
+
+To host your instance of 'Onvista-Share-Price-API', you can click this button:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2FThisIsBenny%2FOnvista-Share-Price-API)
+
+## Documentation
 
 ## Endpoints
 
-ETF: ``` https://onvista-share-price-api.now.sh/api/etf ```
+ETF: ``` https://[DOMAIN]/api/etf ```
 
-Share: ``` https://onvista-share-price-api.now.sh/api/share ```
+Share: ``` https://[DOMAIN]/api/share ```
 
-## Parameters
+### Parameters
 
 * ex
   * required with wkn
@@ -36,27 +40,27 @@ Share: ``` https://onvista-share-price-api.now.sh/api/share ```
   * default: 5Y
   * format: 1Y,5Y,1M...
 
-## Examples
+### Examples
 
-* ``` https://onvista-share-price-api.now.sh/api/etf?ex=LSX&wkn=A111X9&timeSpan=5Y ```
+* ``` https://[DOMAIN]/api/etf?ex=LSX&wkn=A111X9&timeSpan=5Y ```
 
-* ``` https://onvista-share-price-api.now.sh/api/share?ex=LS%20Exchange&wkn=A111X9&timeSpan=5Y ```
+* ``` https://[DOMAIN]/api/share?ex=LS%20Exchange&wkn=A111X9&timeSpan=5Y ```
 
-* ``` https://onvista-share-price-api.now.sh/api/share?ex=LS%20Exchange&wkn=A111X9&timeSpan=5Y&datetimeTzStartRange=2020-01-01 ```
+* ``` https://[DOMAIN]/api/share?ex=LS%20Exchange&wkn=A111X9&timeSpan=5Y&datetimeTzStartRange=2020-01-01 ```
 
-## Portfolio Performance Setup
+### Portfolio Performance Setup
 
 You can use the API in [Portfolio Performance](https://www.portfolio-performance.info/). Use the [JSON Interface](https://help.portfolio-performance.info/kursdaten_laden/#json) with the following config:
 
-### URLs
+#### URLs
 
 ETF with Lang & Schwarz Exchange:
 
-``` https://onvista-share-price-api.now.sh/api/etf?ex=LSX&wkn={WKN} ```
+``` https://[DOMAIN]/api/etf?ex=LSX&wkn={WKN} ```
 
 Share with Lang & Schwarz Exchange:
 
-``` https://onvista-share-price-api.now.sh/api/share?ex=LS%20Exchange&wkn={WKN} ```
+``` https://[DOMAIN]/api/share?ex=LS%20Exchange&wkn={WKN} ```
 
 ### JSON Path
 
@@ -71,4 +75,3 @@ Last share price:
 ```js
 $[*].last
 ```
-

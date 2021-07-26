@@ -4,8 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "vuepress dev .",
-    "build": "vuepress build ."
   },
   "repository": {
     "type": "git",
@@ -16,7 +14,6 @@
   "bugs": {
     "url": "https://github.com/ThisIsBenny/Onvista-Share-Price-API/issues"
   },
-  "homepage": "https://onvista-share-price-api.now.sh",
   "dependencies": {
     "@hapi/joi": "^17.1.1",
     "axios": "^0.21.1",
@@ -24,7 +21,5 @@
     "csvtojson": "^2.0.10",
     "moment": "^2.29.1"
   },
-  "devDependencies": {
-    "vuepress": "^1.8.2"
-  }
+  "devDependencies": {}
 }
