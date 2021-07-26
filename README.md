@@ -10,7 +10,7 @@ To host your instance of 'Onvista-Share-Price-API', you can click this button:
 
 ## Documentation
 
-## Endpoints
+### Endpoints
 
 ETF: ``` https://[DOMAIN]/api/etf ```
 
