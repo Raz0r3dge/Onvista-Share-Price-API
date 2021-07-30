@@ -4,7 +4,7 @@ __Update 26.07.2021: Due to the limitation of the free Vercel account, I no long
 
 ## Host via Vercel
 
-To host your instance of 'Onvista-Share-Price-API', you can click this button:
+To host your instance of Onvista-Share-Price-API, you can click this button:
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2FThisIsBenny%2FOnvista-Share-Price-API)
 
